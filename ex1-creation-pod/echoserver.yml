@@ -1,0 +1,26 @@
+#pour tester ce deployement
+#minikube ssh 
+#puis
+#kubectl get pods -o wide  (recuperer l'IP de du pod echoserver)
+#puis 
+#curl http://IP:8080/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echoserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: echoserver
+  template:
+    metadata:
+      labels:
+        app: echoserver
+    spec:
+      containers:
+      - image: gcr.io/google_containers/echoserver:1.4
+        imagePullPolicy: Always
+        name: echoserver
+        ports:
+        - containerPort: 8080
